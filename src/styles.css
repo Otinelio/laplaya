@@ -1,0 +1,199 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * La Playa Beach Resort & Lounge — Design System
+ * Dark-first luxury tropical aesthetic.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-charcoal: var(--charcoal);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-ocean: var(--ocean);
+  --color-turquoise: var(--turquoise);
+  --color-sand: var(--sand);
+  --color-cream: var(--cream);
+  --color-emerald-brand: var(--emerald-brand);
+  --color-copper: var(--copper);
+  --color-coral: var(--coral);
+  --font-serif: var(--font-serif);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* Brand palette */
+  --charcoal: #1A1A1A;
+  --gold: #C8A557;
+  --gold-light: #E8C77A;
+  --ocean: #0A2E4A;
+  --turquoise: #006B6B;
+  --sand: #F5E6C8;
+  --cream: #FAF7F2;
+  --emerald-brand: #2C5F3A;
+  --copper: #B87040;
+  --coral: #E0856A;
+
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+
+  /* Default dark theme — La Playa is night-first luxury */
+  --background: #1A1A1A;
+  --foreground: #FAF7F2;
+  --card: #1f1f1f;
+  --card-foreground: #FAF7F2;
+  --popover: #1f1f1f;
+  --popover-foreground: #FAF7F2;
+  --primary: #C8A557;
+  --primary-foreground: #1A1A1A;
+  --secondary: #2a2a2a;
+  --secondary-foreground: #FAF7F2;
+  --muted: #262626;
+  --muted-foreground: #a8a39a;
+  --accent: #0A2E4A;
+  --accent-foreground: #FAF7F2;
+  --destructive: #E0856A;
+  --destructive-foreground: #1A1A1A;
+  --border: rgba(200, 165, 87, 0.18);
+  --input: rgba(200, 165, 87, 0.22);
+  --ring: #C8A557;
+  --chart-1: #C8A557;
+  --chart-2: #E8C77A;
+  --chart-3: #006B6B;
+  --chart-4: #B87040;
+  --chart-5: #2C5F3A;
+  --sidebar: #141414;
+  --sidebar-foreground: #FAF7F2;
+  --sidebar-primary: #C8A557;
+  --sidebar-primary-foreground: #1A1A1A;
+  --sidebar-accent: #1f1f1f;
+  --sidebar-accent-foreground: #FAF7F2;
+  --sidebar-border: rgba(200, 165, 87, 0.15);
+  --sidebar-ring: #C8A557;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    background-color: var(--charcoal);
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--charcoal);
+    color: var(--cream);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    letter-spacing: -0.01em;
+  }
+}
+
+@utility font-serif-brand {
+  font-family: var(--font-serif);
+}
+@utility font-display-brand {
+  font-family: var(--font-display);
+}
+@utility font-sans-brand {
+  font-family: var(--font-sans);
+}
+
+@utility gold-gradient {
+  background: linear-gradient(135deg, #C8A557 0%, #E8C77A 50%, #B87040 100%);
+}
+@utility text-gold-gradient {
+  background: linear-gradient(135deg, #C8A557 0%, #E8C77A 50%, #B87040 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility glass-card {
+  background: rgba(26, 26, 26, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(200, 165, 87, 0.2);
+}
+
+@utility hero-overlay {
+  background: linear-gradient(180deg, rgba(10, 46, 74, 0.55) 0%, rgba(26, 26, 26, 0.85) 100%);
+}
+
+@keyframes wave-flow {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@utility animate-wave {
+  animation: wave-flow 18s linear infinite;
+}
+
+@keyframes bounce-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+@utility animate-bounce-soft {
+  animation: bounce-soft 2s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #141414; }
+::-webkit-scrollbar-thumb {
+  background: rgba(200, 165, 87, 0.3);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(200, 165, 87, 0.5); }
