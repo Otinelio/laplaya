@@ -101,7 +101,6 @@ type AdminConfig = {
   adminPin: string;
   whatsappNumber: string;
   open: boolean;
-  domain: string;
 };
 
 type AdminState = AdminConfig & {
@@ -115,7 +114,6 @@ export const useAdmin = create<AdminState>()(
       adminPin: "9999",
       whatsappNumber: "22893910000",
       open: true,
-      domain: "https://togoliving.net",
       setConfig: (c) => set((s) => ({ ...s, ...c })),
     }),
     { name: "laPlaya_admin" },

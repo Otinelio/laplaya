@@ -263,12 +263,11 @@ function HistorySection() {
 }
 
 function SettingsSection() {
-  const { receptionPin, adminPin, whatsappNumber, open, domain, setConfig } = useAdmin();
+  const { receptionPin, adminPin, whatsappNumber, open, setConfig } = useAdmin();
   return (
     <div className="max-w-2xl">
       <h1 className="font-serif-brand text-3xl text-[var(--gold)]">Paramètres</h1>
       <div className="mt-6 space-y-5 rounded-2xl border border-[var(--gold)]/15 bg-[var(--card)] p-6">
-        <SettingField label="Domaine" value={domain} onChange={(v) => setConfig({ domain: v })} />
         <SettingField label="PIN Réception" value={receptionPin} onChange={(v) => setConfig({ receptionPin: v })} />
         <SettingField label="PIN Admin" value={adminPin} onChange={(v) => setConfig({ adminPin: v })} />
         <SettingField label="Numéro WhatsApp" value={whatsappNumber} onChange={(v) => setConfig({ whatsappNumber: v })} />
@@ -420,11 +419,17 @@ function QRCodeCard({ title, url }: { title: string; url: string }) {
 }
 
 function QRSection() {
-  const { domain } = useAdmin();
-  
+  const [currentOrigin, setCurrentOrigin] = useState("https://togoliving.net");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentOrigin(window.location.origin);
+    }
+  }, []);
+
   const roomQrs = ROOMS.map(r => ({
     title: r.name,
-    url: `${domain}/room/${r.id}`
+    url: `${currentOrigin}/room/${r.id}`
   }));
 
   return (
@@ -434,7 +439,7 @@ function QRSection() {
       <div className="mt-8">
         <h2 className="mb-4 text-xl font-serif-brand text-[var(--cream)]">Menu Restaurant (Unique pour toutes les tables)</h2>
         <div className="max-w-sm">
-          <QRCodeCard title="Menu Restaurant" url={`${domain}/restaurant`} />
+          <QRCodeCard title="Menu Restaurant" url={`${currentOrigin}/restaurant`} />
         </div>
       </div>
 
