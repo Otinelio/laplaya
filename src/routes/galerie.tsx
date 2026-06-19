@@ -7,15 +7,30 @@ import { Hero } from "@/components/laplaya/Hero";
 import { Lightbox } from "@/components/laplaya/Lightbox";
 import { GALLERY } from "@/lib/laplaya/data";
 
-const FILTERS = ["Tous", "Resort", "Restaurant", "Bar", "Événements", "Plage", "Nuit"];
+const FILTERS = [
+  "Tous",
+  "Resort",
+  "Restaurant",
+  "Bar",
+  "Événements",
+  "Plage",
+  "Nuit",
+];
 
 export const Route = createFileRoute("/galerie")({
   head: () => ({
     meta: [
       { title: "Galerie — La Playa" },
-      { name: "description", content: "Découvrez La Playa en images : resort, restaurant, bar, événements." },
+      {
+        name: "description",
+        content:
+          "Découvrez La Playa en images : resort, restaurant, bar, événements.",
+      },
       { property: "og:title", content: "Galerie — La Playa" },
-      { property: "og:description", content: "Instants suspendus en bord de mer." },
+      {
+        property: "og:description",
+        content: "Instants suspendus en bord de mer.",
+      },
       { property: "og:url", content: "/galerie" },
     ],
     links: [{ rel: "canonical", href: "/galerie" }],
@@ -28,7 +43,10 @@ function GaleriePage() {
   const [idx, setIdx] = useState<number | null>(null);
 
   const photos = useMemo(
-    () => (filter === "Tous" ? GALLERY : GALLERY.filter((g) => g.category === filter)),
+    () =>
+      filter === "Tous"
+        ? GALLERY
+        : GALLERY.filter((g) => g.category === filter),
     [filter],
   );
   const urls = photos.map((p) => p.src);
@@ -87,7 +105,12 @@ function GaleriePage() {
         </div>
       </section>
 
-      <Lightbox images={urls} index={idx} onClose={() => setIdx(null)} onIndex={setIdx} />
+      <Lightbox
+        images={urls}
+        index={idx}
+        onClose={() => setIdx(null)}
+        onIndex={setIdx}
+      />
     </PublicLayout>
   );
 }

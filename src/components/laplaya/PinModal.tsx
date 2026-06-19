@@ -40,8 +40,12 @@ export function PinPad({
           <div className="mb-4 rounded-full border border-[var(--gold)]/30 p-3 text-[var(--gold)]">
             <Lock size={20} />
           </div>
-          <h2 className="font-serif-brand text-2xl text-[var(--cream)]">{title}</h2>
-          <p className="mt-1 text-sm text-[var(--cream)]/60">Saisissez le code PIN</p>
+          <h2 className="font-serif-brand text-2xl text-[var(--cream)]">
+            {title}
+          </h2>
+          <p className="mt-1 text-sm text-[var(--cream)]/60">
+            Saisissez le code PIN
+          </p>
         </div>
 
         <div className="mb-6 flex justify-center gap-3">
@@ -58,7 +62,9 @@ export function PinPad({
         </div>
 
         {error && (
-          <p className="mb-4 text-center text-sm text-[var(--coral)]">Code incorrect</p>
+          <p className="mb-4 text-center text-sm text-[var(--coral)]">
+            Code incorrect
+          </p>
         )}
 
         <div className="grid grid-cols-3 gap-3">

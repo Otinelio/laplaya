@@ -20,7 +20,10 @@ export function GoldButton({
   children,
   className = "",
   ...rest
-}: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: Variant; children: ReactNode }) {
+}: ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: Variant;
+  children: ReactNode;
+}) {
   return (
     <motion.button
       whileTap={{ scale: 0.97 }}

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import QRCode from "qrcode";
 import {
   LayoutDashboard,
   Utensils,
@@ -8,6 +9,7 @@ import {
   BarChart3,
   Settings,
   Power,
+  QrCode,
 } from "lucide-react";
 import {
   BarChart,
@@ -36,7 +38,7 @@ export const Route = createFileRoute("/admin")({
   component: AdminPage,
 });
 
-type Section = "dashboard" | "menu" | "rooms" | "events" | "history" | "settings";
+type Section = "dashboard" | "menu" | "rooms" | "events" | "history" | "qr" | "settings";
 
 function AdminPage() {
   const [unlocked, setUnlocked] = useState(false);
@@ -55,6 +57,7 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
     { id: "rooms", label: "Chambres", icon: BedDouble },
     { id: "events", label: "Événements", icon: Calendar },
     { id: "history", label: "Historique", icon: BarChart3 },
+    { id: "qr", label: "QR Codes", icon: QrCode },
     { id: "settings", label: "Paramètres", icon: Settings },
   ];
 
@@ -108,6 +111,7 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
         {section === "rooms" && <RoomsSection />}
         {section === "events" && <EventsSection />}
         {section === "history" && <HistorySection />}
+        {section === "qr" && <QRSection />}
         {section === "settings" && <SettingsSection />}
       </main>
     </div>
@@ -259,11 +263,12 @@ function HistorySection() {
 }
 
 function SettingsSection() {
-  const { receptionPin, adminPin, whatsappNumber, open, setConfig } = useAdmin();
+  const { receptionPin, adminPin, whatsappNumber, open, domain, setConfig } = useAdmin();
   return (
     <div className="max-w-2xl">
       <h1 className="font-serif-brand text-3xl text-[var(--gold)]">Paramètres</h1>
       <div className="mt-6 space-y-5 rounded-2xl border border-[var(--gold)]/15 bg-[var(--card)] p-6">
+        <SettingField label="Domaine" value={domain} onChange={(v) => setConfig({ domain: v })} />
         <SettingField label="PIN Réception" value={receptionPin} onChange={(v) => setConfig({ receptionPin: v })} />
         <SettingField label="PIN Admin" value={adminPin} onChange={(v) => setConfig({ adminPin: v })} />
         <SettingField label="Numéro WhatsApp" value={whatsappNumber} onChange={(v) => setConfig({ whatsappNumber: v })} />
@@ -347,6 +352,99 @@ function SimpleTable({
             ))}
           </tbody>
         </table>
+      </div>
+    </div>
+  );
+}
+
+function QRCodeCard({ title, url }: { title: string; url: string }) {
+  const [dataUrl, setDataUrl] = useState<string>("");
+
+  useEffect(() => {
+    QRCode.toDataURL(url, { width: 400, margin: 2, color: { dark: '#111827', light: '#ffffff' } }).then(setDataUrl);
+  }, [url]);
+
+  const handleDownload = () => {
+    const a = document.createElement("a");
+    a.href = dataUrl;
+    a.download = `qrcode-${title.replace(/\\s+/g, '-').toLowerCase()}.png`;
+    a.click();
+  };
+
+  const handlePrint = () => {
+    const win = window.open("", "_blank");
+    if (!win) return;
+    win.document.write(`
+      <html>
+        <head>
+          <title>Print QR - ${title}</title>
+          <style>
+            body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #faf7f2; color: #111827; }
+            h1 { font-size: 2rem; margin-bottom: 2rem; color: #C8A557; }
+            img { max-width: 80vw; max-height: 80vh; background: #fff; padding: 1rem; border-radius: 1rem; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
+            p { margin-top: 1rem; font-size: 1.2rem; opacity: 0.8; }
+          </style>
+        </head>
+        <body>
+          <h1>${title}</h1>
+          <img src="${dataUrl}" alt="QR Code" />
+          <p>Scannez pour accéder au service</p>
+          <script>
+            window.onload = () => { window.print(); window.close(); }
+          </script>
+        </body>
+      </html>
+    `);
+    win.document.close();
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-between rounded-2xl border border-[var(--gold)]/15 bg-[var(--card)] p-6">
+      <h3 className="mb-4 text-lg font-serif-brand text-[var(--gold)] text-center">{title}</h3>
+      {dataUrl ? (
+        <img src={dataUrl} alt={`QR Code ${title}`} className="mb-4 rounded-lg bg-white p-2 w-48 h-48 object-contain" />
+      ) : (
+        <div className="mb-4 w-48 h-48 animate-pulse rounded-lg bg-white/10" />
+      )}
+      <p className="mb-4 text-xs text-[var(--cream)]/60 text-center break-all">{url}</p>
+      <div className="flex gap-2 w-full mt-auto">
+        <button onClick={handleDownload} className="flex-1 rounded-lg border border-[var(--gold)]/20 px-3 py-2 text-sm text-[var(--cream)]/80 hover:bg-[var(--gold)]/10 hover:text-[var(--gold)] transition-colors">
+          Télécharger
+        </button>
+        <button onClick={handlePrint} className="flex-1 rounded-lg bg-[var(--gold)]/20 px-3 py-2 text-sm text-[var(--gold)] hover:bg-[var(--gold)]/30 transition-colors">
+          Imprimer
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function QRSection() {
+  const { domain } = useAdmin();
+  
+  const roomQrs = ROOMS.map(r => ({
+    title: r.name,
+    url: `${domain}/room/${r.id}`
+  }));
+
+  return (
+    <div>
+      <h1 className="font-serif-brand text-3xl text-[var(--gold)]">QR Codes</h1>
+      
+      <div className="mt-8">
+        <h2 className="mb-4 text-xl font-serif-brand text-[var(--cream)]">Menu Restaurant (Unique pour toutes les tables)</h2>
+        <div className="max-w-sm">
+          <QRCodeCard title="Menu Restaurant" url={`${domain}/restaurant`} />
+        </div>
+      </div>
+
+      <div className="mt-8">
+        <h2 className="mb-4 text-xl font-serif-brand text-[var(--cream)]">Conciergerie Digitale (Chambres)</h2>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {roomQrs.map(qr => (
+            <QRCodeCard key={qr.title} title={qr.title} url={qr.url} />
+          ))}
+        </div>
       </div>
     </div>
   );

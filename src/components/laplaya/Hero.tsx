@@ -32,27 +32,38 @@ export function Hero({
           animate="visible"
           variants={{
             hidden: {},
-            visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+            visible: {
+              transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+            },
           }}
           className="max-w-3xl"
         >
           {label && (
             <motion.p
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 },
+              }}
               className="mb-4 text-xs uppercase tracking-[0.4em] text-[var(--gold)]"
             >
               {label}
             </motion.p>
           )}
           <motion.h1
-            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 },
+            }}
             className="font-serif-brand text-4xl leading-tight text-[var(--cream)] sm:text-5xl lg:text-7xl"
           >
             {title}
           </motion.h1>
           {subtitle && (
             <motion.p
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 },
+              }}
               className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--cream)]/80 lg:text-lg"
             >
               {subtitle}
@@ -60,7 +71,10 @@ export function Hero({
           )}
           {children && (
             <motion.div
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 },
+              }}
               className="mt-10"
             >
               {children}

@@ -28,20 +28,36 @@ export function Navbar() {
     setOpen(false);
   }, [pathname]);
 
+  // Prevent scrolling when mobile menu is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [open]);
+
   return (
     <motion.header
       initial={false}
       animate={{
-        backgroundColor: scrolled ? "rgba(26,26,26,0.95)" : "rgba(26,26,26,0)",
-        borderBottomColor: scrolled ? "rgba(200,165,87,0.2)" : "rgba(200,165,87,0)",
-        backdropFilter: scrolled ? "blur(12px)" : "blur(0px)",
+        backgroundColor:
+          scrolled || open ? "rgba(15,15,15,0.85)" : "rgba(15,15,15,0)",
+        borderBottomColor:
+          scrolled || open ? "rgba(200,165,87,0.15)" : "rgba(200,165,87,0)",
+        backdropFilter: scrolled || open ? "blur(16px)" : "blur(0px)",
       }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.4, ease: "circOut" }}
       className="fixed top-0 left-0 right-0 z-50 border-b"
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
-        <Link to="/" className="font-serif-brand text-2xl tracking-wider text-[var(--gold)]">
-          La Playa
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-12">
+        <Link to="/" className="group flex items-center gap-2">
+          <span className="font-serif-brand text-3xl tracking-widest text-[var(--gold)] drop-shadow-[0_0_10px_rgba(200,165,87,0.3)] transition-colors duration-500 group-hover:text-white">
+            La Playa
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
@@ -51,62 +67,123 @@ export function Navbar() {
               <Link
                 key={link.to}
                 to={link.to}
-                className="group relative text-sm uppercase tracking-widest text-[var(--cream)]/85 transition-colors hover:text-[var(--gold)]"
+                className={`group relative px-2 py-2 text-xs font-semibold uppercase tracking-[0.15em] transition-all duration-300 ${
+                  active
+                    ? "text-[var(--gold)]"
+                    : "text-[var(--cream)]/80 hover:text-[var(--gold)]"
+                }`}
               >
                 {link.label}
-                <span
-                  className={`absolute -bottom-1.5 left-0 h-0.5 bg-[var(--gold)] transition-all ${
-                    active ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
-                />
+                {active ? (
+                  <motion.span
+                    layoutId="nav-indicator"
+                    className="absolute -bottom-1 left-1/2 h-[2px] w-6 -translate-x-1/2 bg-[var(--gold)] shadow-[0_0_8px_rgba(200,165,87,0.8)]"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                ) : (
+                  <span className="absolute -bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-[var(--gold)]/50 transition-all duration-300 group-hover:w-6" />
+                )}
               </Link>
             );
           })}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-5">
           <Link
             to="/reserver"
-            className="hidden rounded-full bg-[var(--gold)] px-6 py-2.5 text-sm font-medium uppercase tracking-wider text-[var(--charcoal)] transition-all hover:bg-[var(--gold-light)] hover:shadow-[0_0_24px_rgba(200,165,87,0.4)] lg:inline-block"
+            className="hidden rounded-full bg-gradient-to-r from-[var(--gold)] to-[#e5c07b] px-8 py-3 text-xs font-bold uppercase tracking-[0.2em] text-[var(--charcoal)] shadow-[0_0_15px_rgba(200,165,87,0.2)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(200,165,87,0.5)] lg:inline-flex"
           >
             Réserver
           </Link>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="rounded-full border border-[var(--gold)]/30 p-2 text-[var(--gold)] lg:hidden"
+            className="group relative z-50 flex h-11 w-11 items-center justify-center rounded-full border border-[var(--gold)]/30 text-[var(--gold)] transition-all duration-300 hover:border-[var(--gold)] hover:bg-[var(--gold)]/10 lg:hidden"
             aria-label="Menu"
           >
-            {open ? <X size={20} /> : <Menu size={20} />}
+            <AnimatePresence mode="wait">
+              {open ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X size={22} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu size={22} />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </button>
         </div>
       </div>
 
+      {/* Mobile Menu Fullscreen Overlay */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden border-t border-[var(--gold)]/20 bg-[var(--charcoal)] lg:hidden"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="fixed inset-x-0 top-0 -z-10 flex h-screen flex-col bg-[var(--charcoal)] pt-[96px] lg:hidden"
           >
-            <div className="flex flex-col gap-1 px-6 py-6">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className="rounded-md px-3 py-3 text-sm uppercase tracking-widest text-[var(--cream)]/85 hover:bg-[var(--gold)]/10 hover:text-[var(--gold)]"
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Link
-                to="/reserver"
-                className="mt-4 rounded-full bg-[var(--gold)] px-6 py-3 text-center text-sm font-medium uppercase tracking-wider text-[var(--charcoal)]"
+            <div className="flex flex-1 flex-col items-center justify-center gap-8 pb-24">
+              {NAV_LINKS.map((link, i) => {
+                const active = pathname === link.to;
+                return (
+                  <motion.div
+                    key={link.to}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{
+                      delay: i * 0.1,
+                      duration: 0.4,
+                      ease: "easeOut",
+                    }}
+                  >
+                    <Link
+                      to={link.to}
+                      onClick={() => setOpen(false)}
+                      className={`text-2xl font-serif-brand tracking-widest transition-colors ${
+                        active
+                          ? "text-[var(--gold)] drop-shadow-[0_0_8px_rgba(200,165,87,0.5)]"
+                          : "text-[var(--cream)] hover:text-[var(--gold)]"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                );
+              })}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ delay: NAV_LINKS.length * 0.1, duration: 0.4 }}
+                className="mt-8"
               >
-                Réserver
-              </Link>
+                <Link
+                  to="/reserver"
+                  onClick={() => setOpen(false)}
+                  className="rounded-full border border-[var(--gold)] px-12 py-4 text-sm font-bold uppercase tracking-widest text-[var(--gold)] transition-all hover:bg-[var(--gold)] hover:text-[var(--charcoal)] hover:shadow-[0_0_20px_rgba(200,165,87,0.3)]"
+                >
+                  Réserver
+                </Link>
+              </motion.div>
             </div>
+
+            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-[var(--gold)]/10 to-transparent" />
           </motion.div>
         )}
       </AnimatePresence>

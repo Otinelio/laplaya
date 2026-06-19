@@ -19,6 +19,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SpotSpotIdRouteImport } from './routes/spot.$spotId'
+import { Route as RoomRoomIdRouteImport } from './routes/room.$roomId'
 
 const SejoursRoute = SejoursRouteImport.update({
   id: '/sejours',
@@ -70,6 +71,11 @@ const SpotSpotIdRoute = SpotSpotIdRouteImport.update({
   path: '/spot/$spotId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RoomRoomIdRoute = RoomRoomIdRouteImport.update({
+  id: '/room/$roomId',
+  path: '/room/$roomId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/reserver': typeof ReserverRoute
   '/restaurant': typeof RestaurantRoute
   '/sejours': typeof SejoursRoute
+  '/room/$roomId': typeof RoomRoomIdRoute
   '/spot/$spotId': typeof SpotSpotIdRoute
 }
 export interface FileRoutesByTo {
@@ -93,6 +100,7 @@ export interface FileRoutesByTo {
   '/reserver': typeof ReserverRoute
   '/restaurant': typeof RestaurantRoute
   '/sejours': typeof SejoursRoute
+  '/room/$roomId': typeof RoomRoomIdRoute
   '/spot/$spotId': typeof SpotSpotIdRoute
 }
 export interface FileRoutesById {
@@ -106,6 +114,7 @@ export interface FileRoutesById {
   '/reserver': typeof ReserverRoute
   '/restaurant': typeof RestaurantRoute
   '/sejours': typeof SejoursRoute
+  '/room/$roomId': typeof RoomRoomIdRoute
   '/spot/$spotId': typeof SpotSpotIdRoute
 }
 export interface FileRouteTypes {
@@ -120,6 +129,7 @@ export interface FileRouteTypes {
     | '/reserver'
     | '/restaurant'
     | '/sejours'
+    | '/room/$roomId'
     | '/spot/$spotId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -132,6 +142,7 @@ export interface FileRouteTypes {
     | '/reserver'
     | '/restaurant'
     | '/sejours'
+    | '/room/$roomId'
     | '/spot/$spotId'
   id:
     | '__root__'
@@ -144,6 +155,7 @@ export interface FileRouteTypes {
     | '/reserver'
     | '/restaurant'
     | '/sejours'
+    | '/room/$roomId'
     | '/spot/$spotId'
   fileRoutesById: FileRoutesById
 }
@@ -157,6 +169,7 @@ export interface RootRouteChildren {
   ReserverRoute: typeof ReserverRoute
   RestaurantRoute: typeof RestaurantRoute
   SejoursRoute: typeof SejoursRoute
+  RoomRoomIdRoute: typeof RoomRoomIdRoute
   SpotSpotIdRoute: typeof SpotSpotIdRoute
 }
 
@@ -232,6 +245,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SpotSpotIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/room/$roomId': {
+      id: '/room/$roomId'
+      path: '/room/$roomId'
+      fullPath: '/room/$roomId'
+      preLoaderRoute: typeof RoomRoomIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -245,6 +265,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReserverRoute: ReserverRoute,
   RestaurantRoute: RestaurantRoute,
   SejoursRoute: SejoursRoute,
+  RoomRoomIdRoute: RoomRoomIdRoute,
   SpotSpotIdRoute: SpotSpotIdRoute,
 }
 export const routeTree = rootRouteImport

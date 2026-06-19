@@ -17,7 +17,8 @@ export function Lightbox({
     if (index === null) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
-      if (e.key === "ArrowLeft") onIndex((index - 1 + images.length) % images.length);
+      if (e.key === "ArrowLeft")
+        onIndex((index - 1 + images.length) % images.length);
       if (e.key === "ArrowRight") onIndex((index + 1) % images.length);
     };
     window.addEventListener("keydown", onKey);

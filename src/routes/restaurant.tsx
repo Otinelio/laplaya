@@ -32,7 +32,8 @@ export const Route = createFileRoute("/restaurant")({
       { property: "og:title", content: "Restaurant & Bar — La Playa" },
       {
         property: "og:description",
-        content: "Gastronomie en bord de mer, cocktails d'exception, couchers de soleil.",
+        content:
+          "Gastronomie en bord de mer, cocktails d'exception, couchers de soleil.",
       },
       { property: "og:url", content: "/restaurant" },
     ],
@@ -42,7 +43,8 @@ export const Route = createFileRoute("/restaurant")({
 });
 
 function RestaurantPage() {
-  const [cat, setCat] = useState<(typeof MENU_CATEGORIES)[number]["id"]>("entrees");
+  const [cat, setCat] =
+    useState<(typeof MENU_CATEGORIES)[number]["id"]>("entrees");
   const [cartOpen, setCartOpen] = useState(false);
   const { add, items } = useCart();
   const totalQty = items.reduce((s, i) => s + i.qty, 0);
@@ -58,9 +60,17 @@ function RestaurantPage() {
         subtitle="Gastronomie en bord de mer · Cocktails d'exception · Couchers de soleil"
       >
         <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm uppercase tracking-widest text-[var(--cream)]/80">
-          <span><span className="text-[var(--gold)]">Déjeuner</span> · {BRAND.hours.dejeuner}</span>
-          <span><span className="text-[var(--gold)]">Dîner</span> · {BRAND.hours.diner}</span>
-          <span><span className="text-[var(--gold)]">Bar</span> · {BRAND.hours.bar}</span>
+          <span>
+            <span className="text-[var(--gold)]">Déjeuner</span> ·{" "}
+            {BRAND.hours.dejeuner}
+          </span>
+          <span>
+            <span className="text-[var(--gold)]">Dîner</span> ·{" "}
+            {BRAND.hours.diner}
+          </span>
+          <span>
+            <span className="text-[var(--gold)]">Bar</span> · {BRAND.hours.bar}
+          </span>
         </div>
       </Hero>
 
@@ -106,7 +116,9 @@ function RestaurantPage() {
                         {formatFCFA(m.price)}
                       </span>
                     </div>
-                    <p className="mt-1 text-sm text-[var(--cream)]/65">{m.description}</p>
+                    <p className="mt-1 text-sm text-[var(--cream)]/65">
+                      {m.description}
+                    </p>
                     <div className="mt-auto flex items-center justify-between pt-3">
                       <div className="flex gap-1.5">
                         {m.tags?.includes("signature") && (

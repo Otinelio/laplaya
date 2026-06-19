@@ -1,6 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { BedDouble, Utensils, Umbrella, MessageCircle, CheckCircle2 } from "lucide-react";
+import {
+  BedDouble,
+  Utensils,
+  Umbrella,
+  MessageCircle,
+  CheckCircle2,
+} from "lucide-react";
 import { PublicLayout } from "@/components/laplaya/Layout";
 import { Hero } from "@/components/laplaya/Hero";
 import { GoldButton } from "@/components/laplaya/buttons";
@@ -12,9 +18,16 @@ export const Route = createFileRoute("/reserver")({
   head: () => ({
     meta: [
       { title: "Réservation — La Playa" },
-      { name: "description", content: "Réservez votre séjour, votre table ou votre cabane à La Playa." },
+      {
+        name: "description",
+        content:
+          "Réservez votre séjour, votre table ou votre cabane à La Playa.",
+      },
       { property: "og:title", content: "Réservation — La Playa" },
-      { property: "og:description", content: "Trois expériences, une signature." },
+      {
+        property: "og:description",
+        content: "Trois expériences, une signature.",
+      },
       { property: "og:url", content: "/reserver" },
     ],
     links: [{ rel: "canonical", href: "/reserver" }],
@@ -45,7 +58,8 @@ function ReserverPage() {
                 Votre demande a été envoyée
               </h2>
               <p className="mt-3 max-w-md text-[var(--cream)]/70">
-                Notre équipe vous contactera sous 24h pour finaliser votre réservation.
+                Notre équipe vous contactera sous 24h pour finaliser votre
+                réservation.
               </p>
               <GoldButton onClick={() => setSent(false)} className="mt-8">
                 Nouvelle demande
@@ -78,9 +92,15 @@ function ReserverPage() {
               </div>
 
               <div className="mt-8 rounded-2xl border border-[var(--gold)]/15 bg-[var(--card)] p-8">
-                {tab === "sejour" && <SejourForm onSent={() => setSent(true)} />}
-                {tab === "restaurant" && <RestaurantForm onSent={() => setSent(true)} />}
-                {tab === "cabane" && <CabaneForm onSent={() => setSent(true)} />}
+                {tab === "sejour" && (
+                  <SejourForm onSent={() => setSent(true)} />
+                )}
+                {tab === "restaurant" && (
+                  <RestaurantForm onSent={() => setSent(true)} />
+                )}
+                {tab === "cabane" && (
+                  <CabaneForm onSent={() => setSent(true)} />
+                )}
               </div>
             </>
           )}
@@ -141,16 +161,50 @@ function SejourForm({ onSent }: { onSent: () => void }) {
   };
   return (
     <div className="space-y-4">
-      <h3 className="font-serif-brand text-xl text-[var(--gold)]">Séjour & Hébergement</h3>
-      <Field label="Nom" required value={f.name} onChange={(v) => setF({ ...f, name: v })} />
+      <h3 className="font-serif-brand text-xl text-[var(--gold)]">
+        Séjour & Hébergement
+      </h3>
+      <Field
+        label="Nom"
+        required
+        value={f.name}
+        onChange={(v) => setF({ ...f, name: v })}
+      />
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Email" type="email" value={f.email} onChange={(v) => setF({ ...f, email: v })} />
-        <Field label="Téléphone" required value={f.phone} onChange={(v) => setF({ ...f, phone: v })} />
+        <Field
+          label="Email"
+          type="email"
+          value={f.email}
+          onChange={(v) => setF({ ...f, email: v })}
+        />
+        <Field
+          label="Téléphone"
+          required
+          value={f.phone}
+          onChange={(v) => setF({ ...f, phone: v })}
+        />
       </div>
       <div className="grid gap-4 sm:grid-cols-3">
-        <Field label="Arrivée" required type="date" value={f.checkIn} onChange={(v) => setF({ ...f, checkIn: v })} />
-        <Field label="Départ" required type="date" value={f.checkOut} onChange={(v) => setF({ ...f, checkOut: v })} />
-        <Field label="Personnes" type="number" value={f.guests} onChange={(v) => setF({ ...f, guests: v })} />
+        <Field
+          label="Arrivée"
+          required
+          type="date"
+          value={f.checkIn}
+          onChange={(v) => setF({ ...f, checkIn: v })}
+        />
+        <Field
+          label="Départ"
+          required
+          type="date"
+          value={f.checkOut}
+          onChange={(v) => setF({ ...f, checkOut: v })}
+        />
+        <Field
+          label="Personnes"
+          type="number"
+          value={f.guests}
+          onChange={(v) => setF({ ...f, guests: v })}
+        />
       </div>
       <div>
         <label className="mb-2 block text-xs uppercase tracking-widest text-[var(--gold)]">
@@ -206,15 +260,47 @@ function RestaurantForm({ onSent }: { onSent: () => void }) {
   };
   return (
     <div className="space-y-4">
-      <h3 className="font-serif-brand text-xl text-[var(--gold)]">Restaurant & Table</h3>
-      <Field label="Nom" required value={f.name} onChange={(v) => setF({ ...f, name: v })} />
-      <Field label="Téléphone" required value={f.phone} onChange={(v) => setF({ ...f, phone: v })} />
+      <h3 className="font-serif-brand text-xl text-[var(--gold)]">
+        Restaurant & Table
+      </h3>
+      <Field
+        label="Nom"
+        required
+        value={f.name}
+        onChange={(v) => setF({ ...f, name: v })}
+      />
+      <Field
+        label="Téléphone"
+        required
+        value={f.phone}
+        onChange={(v) => setF({ ...f, phone: v })}
+      />
       <div className="grid gap-4 sm:grid-cols-3">
-        <Field label="Date" required type="date" value={f.date} onChange={(v) => setF({ ...f, date: v })} />
-        <Field label="Heure" type="time" value={f.time} onChange={(v) => setF({ ...f, time: v })} />
-        <Field label="Personnes" type="number" value={f.guests} onChange={(v) => setF({ ...f, guests: v })} />
+        <Field
+          label="Date"
+          required
+          type="date"
+          value={f.date}
+          onChange={(v) => setF({ ...f, date: v })}
+        />
+        <Field
+          label="Heure"
+          type="time"
+          value={f.time}
+          onChange={(v) => setF({ ...f, time: v })}
+        />
+        <Field
+          label="Personnes"
+          type="number"
+          value={f.guests}
+          onChange={(v) => setF({ ...f, guests: v })}
+        />
       </div>
-      <Field label="Occasion (anniversaire, romantique...)" value={f.occasion} onChange={(v) => setF({ ...f, occasion: v })} />
+      <Field
+        label="Occasion (anniversaire, romantique...)"
+        value={f.occasion}
+        onChange={(v) => setF({ ...f, occasion: v })}
+      />
       <GoldButton onClick={submit} disabled={!ok} className="w-full">
         <MessageCircle size={16} /> Envoyer via WhatsApp
       </GoldButton>
@@ -240,13 +326,33 @@ function CabaneForm({ onSent }: { onSent: () => void }) {
   };
   return (
     <div className="space-y-4">
-      <h3 className="font-serif-brand text-xl text-[var(--gold)]">Cabane / Transat Plage</h3>
-      <Field label="Nom" required value={f.name} onChange={(v) => setF({ ...f, name: v })} />
-      <Field label="Téléphone" required value={f.phone} onChange={(v) => setF({ ...f, phone: v })} />
+      <h3 className="font-serif-brand text-xl text-[var(--gold)]">
+        Cabane / Transat Plage
+      </h3>
+      <Field
+        label="Nom"
+        required
+        value={f.name}
+        onChange={(v) => setF({ ...f, name: v })}
+      />
+      <Field
+        label="Téléphone"
+        required
+        value={f.phone}
+        onChange={(v) => setF({ ...f, phone: v })}
+      />
       <div className="grid gap-4 sm:grid-cols-3">
-        <Field label="Date" required type="date" value={f.date} onChange={(v) => setF({ ...f, date: v })} />
+        <Field
+          label="Date"
+          required
+          type="date"
+          value={f.date}
+          onChange={(v) => setF({ ...f, date: v })}
+        />
         <div>
-          <label className="mb-2 block text-xs uppercase tracking-widest text-[var(--gold)]">Type</label>
+          <label className="mb-2 block text-xs uppercase tracking-widest text-[var(--gold)]">
+            Type
+          </label>
           <select
             value={f.spot}
             onChange={(e) => setF({ ...f, spot: e.target.value })}
@@ -257,7 +363,12 @@ function CabaneForm({ onSent }: { onSent: () => void }) {
             <option>Table plage</option>
           </select>
         </div>
-        <Field label="Personnes" type="number" value={f.guests} onChange={(v) => setF({ ...f, guests: v })} />
+        <Field
+          label="Personnes"
+          type="number"
+          value={f.guests}
+          onChange={(v) => setF({ ...f, guests: v })}
+        />
       </div>
       <GoldButton onClick={submit} disabled={!ok} className="w-full">
         <MessageCircle size={16} /> Envoyer via WhatsApp

@@ -14,9 +14,15 @@ export const Route = createFileRoute("/evenements")({
   head: () => ({
     meta: [
       { title: "Événements & Soirées — La Playa" },
-      { name: "description", content: "DJ sets, soirées à thème, brunch dominical, privatisations." },
+      {
+        name: "description",
+        content: "DJ sets, soirées à thème, brunch dominical, privatisations.",
+      },
       { property: "og:title", content: "Événements — La Playa" },
-      { property: "og:description", content: "Soirées d'exception en bord de mer." },
+      {
+        property: "og:description",
+        content: "Soirées d'exception en bord de mer.",
+      },
       { property: "og:url", content: "/evenements" },
     ],
     links: [{ rel: "canonical", href: "/evenements" }],
@@ -66,11 +72,15 @@ function EvenementsPage() {
                   </p>
                   <div className="mt-4 flex items-center justify-between border-t border-[var(--gold)]/10 pt-4 text-sm">
                     <span className="flex items-center gap-1.5 text-[var(--cream)]/70">
-                      <Clock size={14} className="text-[var(--gold)]" /> {ev.time}
+                      <Clock size={14} className="text-[var(--gold)]" />{" "}
+                      {ev.time}
                     </span>
                     <span className="text-[var(--gold)]">{ev.price}</span>
                   </div>
-                  <GoldButton onClick={() => setOpenEvent(ev)} className="mt-5 w-full">
+                  <GoldButton
+                    onClick={() => setOpenEvent(ev)}
+                    className="mt-5 w-full"
+                  >
                     S'inscrire
                   </GoldButton>
                 </div>
@@ -87,12 +97,15 @@ function EvenementsPage() {
               <SectionLabel>Privatisation</SectionLabel>
               <h2 className="font-serif-brand mt-4 text-4xl text-[var(--cream)] lg:text-5xl">
                 Privatisez La Playa <br />
-                <span className="text-gold-gradient italic">pour votre événement</span>
+                <span className="text-gold-gradient italic">
+                  pour votre événement
+                </span>
               </h2>
               <GoldDivider className="mt-6" />
               <p className="mx-auto mt-6 max-w-2xl text-[var(--cream)]/75">
-                Anniversaires, mariages, séminaires d'entreprise, soirées privées —
-                notre équipe conçoit avec vous un événement à votre image.
+                Anniversaires, mariages, séminaires d'entreprise, soirées
+                privées — notre équipe conçoit avec vous un événement à votre
+                image.
               </p>
             </div>
           </Reveal>
@@ -105,7 +118,12 @@ function EvenementsPage() {
             ].map((src, i) => (
               <Reveal key={src} delay={i * 0.08}>
                 <div className="overflow-hidden rounded-2xl">
-                  <img src={src} alt="" loading="lazy" className="h-72 w-full object-cover" />
+                  <img
+                    src={src}
+                    alt=""
+                    loading="lazy"
+                    className="h-72 w-full object-cover"
+                  />
                 </div>
               </Reveal>
             ))}
@@ -130,8 +148,19 @@ function EvenementsPage() {
   );
 }
 
-function RSVPModal({ event, onClose }: { event: EventItem | null; onClose: () => void }) {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", guests: "2" });
+function RSVPModal({
+  event,
+  onClose,
+}: {
+  event: EventItem | null;
+  onClose: () => void;
+}) {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    guests: "2",
+  });
   const [sent, setSent] = useState(false);
 
   const submit = () => {
@@ -169,11 +198,15 @@ function RSVPModal({ event, onClose }: { event: EventItem | null; onClose: () =>
             {sent ? (
               <div className="flex flex-col items-center py-6 text-center">
                 <CheckCircle2 size={48} className="text-[var(--gold)]" />
-                <h3 className="font-serif-brand mt-4 text-2xl text-[var(--cream)]">Inscription envoyée</h3>
+                <h3 className="font-serif-brand mt-4 text-2xl text-[var(--cream)]">
+                  Inscription envoyée
+                </h3>
                 <p className="mt-2 text-sm text-[var(--cream)]/70">
                   Nous reviendrons vers vous très vite.
                 </p>
-                <GoldButton onClick={onClose} className="mt-6">Fermer</GoldButton>
+                <GoldButton onClick={onClose} className="mt-6">
+                  Fermer
+                </GoldButton>
               </div>
             ) : (
               <>
@@ -183,7 +216,9 @@ function RSVPModal({ event, onClose }: { event: EventItem | null; onClose: () =>
                 <h3 className="font-serif-brand mt-2 text-2xl text-[var(--cream)]">
                   {event.title}
                 </h3>
-                <p className="mt-1 text-sm text-[var(--cream)]/70">{event.date} · {event.time}</p>
+                <p className="mt-1 text-sm text-[var(--cream)]/70">
+                  {event.date} · {event.time}
+                </p>
 
                 <div className="mt-6 space-y-3">
                   {[
@@ -199,7 +234,9 @@ function RSVPModal({ event, onClose }: { event: EventItem | null; onClose: () =>
                       <input
                         type={t ?? "text"}
                         value={form[k as keyof typeof form]}
-                        onChange={(e) => setForm({ ...form, [k]: e.target.value })}
+                        onChange={(e) =>
+                          setForm({ ...form, [k]: e.target.value })
+                        }
                         className="w-full rounded-lg border border-[var(--gold)]/20 bg-[var(--charcoal)] px-4 py-2.5 text-sm text-[var(--cream)] focus:border-[var(--gold)] focus:outline-none"
                       />
                     </div>

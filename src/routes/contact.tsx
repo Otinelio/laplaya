@@ -21,9 +21,16 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact & Accès — La Playa" },
-      { name: "description", content: "Contactez La Playa : téléphone, WhatsApp, email, adresse et horaires." },
+      {
+        name: "description",
+        content:
+          "Contactez La Playa : téléphone, WhatsApp, email, adresse et horaires.",
+      },
       { property: "og:title", content: "Contact — La Playa" },
-      { property: "og:description", content: "Nous contacter et nous trouver." },
+      {
+        property: "og:description",
+        content: "Nous contacter et nous trouver.",
+      },
       { property: "og:url", content: "/contact" },
     ],
     links: [{ rel: "canonical", href: "/contact" }],
@@ -59,16 +66,24 @@ function ContactPage() {
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2">
           <Reveal>
             <div className="rounded-2xl border border-[var(--gold)]/15 bg-[var(--card)] p-8">
-              <h2 className="font-serif-brand text-2xl text-[var(--gold)]">Le Resort</h2>
+              <h2 className="font-serif-brand text-2xl text-[var(--gold)]">
+                Le Resort
+              </h2>
               <ul className="mt-6 space-y-5 text-sm text-[var(--cream)]/85">
                 <Info icon={MapPin} label="Adresse" value={BRAND.address} />
                 <Info icon={Phone} label="Téléphone" value={BRAND.phone} />
-                <Info icon={MessageCircle} label="WhatsApp" value={`+${BRAND.whatsapp}`} />
+                <Info
+                  icon={MessageCircle}
+                  label="WhatsApp"
+                  value={`+${BRAND.whatsapp}`}
+                />
                 <Info icon={Mail} label="Email" value={BRAND.email} />
                 <li className="flex gap-4">
                   <Clock size={18} className="mt-1 text-[var(--gold)]" />
                   <div>
-                    <p className="text-xs uppercase tracking-widest text-[var(--gold)]">Horaires</p>
+                    <p className="text-xs uppercase tracking-widest text-[var(--gold)]">
+                      Horaires
+                    </p>
                     <p className="mt-1">Déjeuner — {BRAND.hours.dejeuner}</p>
                     <p>Dîner — {BRAND.hours.diner}</p>
                     <p>Bar — {BRAND.hours.bar}</p>
@@ -101,12 +116,27 @@ function ContactPage() {
 
           <Reveal delay={0.1}>
             <div className="rounded-2xl border border-[var(--gold)]/15 bg-[var(--card)] p-8">
-              <h2 className="font-serif-brand text-2xl text-[var(--gold)]">Écrivez-nous</h2>
+              <h2 className="font-serif-brand text-2xl text-[var(--gold)]">
+                Écrivez-nous
+              </h2>
               <div className="mt-6 space-y-4">
-                <Input label="Nom" value={form.name} onChange={(v) => setForm({ ...form, name: v })} />
+                <Input
+                  label="Nom"
+                  value={form.name}
+                  onChange={(v) => setForm({ ...form, name: v })}
+                />
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <Input label="Email" type="email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
-                  <Input label="Téléphone" value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} />
+                  <Input
+                    label="Email"
+                    type="email"
+                    value={form.email}
+                    onChange={(v) => setForm({ ...form, email: v })}
+                  />
+                  <Input
+                    label="Téléphone"
+                    value={form.phone}
+                    onChange={(v) => setForm({ ...form, phone: v })}
+                  />
                 </div>
                 <div>
                   <label className="mb-2 block text-xs uppercase tracking-widest text-[var(--gold)]">
@@ -114,7 +144,9 @@ function ContactPage() {
                   </label>
                   <select
                     value={form.subject}
-                    onChange={(e) => setForm({ ...form, subject: e.target.value })}
+                    onChange={(e) =>
+                      setForm({ ...form, subject: e.target.value })
+                    }
                     className="w-full rounded-lg border border-[var(--gold)]/20 bg-[var(--charcoal)] px-4 py-2.5 text-sm text-[var(--cream)] focus:border-[var(--gold)] focus:outline-none"
                   >
                     <option>Réservation</option>
@@ -129,7 +161,9 @@ function ContactPage() {
                   </label>
                   <textarea
                     value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    onChange={(e) =>
+                      setForm({ ...form, message: e.target.value })
+                    }
                     rows={4}
                     className="w-full rounded-lg border border-[var(--gold)]/20 bg-[var(--charcoal)] px-4 py-3 text-sm text-[var(--cream)] focus:border-[var(--gold)] focus:outline-none"
                   />
@@ -156,13 +190,30 @@ function ContactPage() {
 
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {[
-              { icon: Car, title: "En voiture", text: "Parking sécurisé gratuit sur place." },
-              { icon: MapPin, title: "En taxi", text: "Demandez « La Playa Beach Resort »." },
-              { icon: ParkingSquare, title: "Stationnement", text: "Voiturier disponible le soir." },
+              {
+                icon: Car,
+                title: "En voiture",
+                text: "Parking sécurisé gratuit sur place.",
+              },
+              {
+                icon: MapPin,
+                title: "En taxi",
+                text: "Demandez « La Playa Beach Resort ».",
+              },
+              {
+                icon: ParkingSquare,
+                title: "Stationnement",
+                text: "Voiturier disponible le soir.",
+              },
             ].map((c) => (
-              <div key={c.title} className="rounded-2xl border border-[var(--gold)]/15 bg-[var(--card)] p-6 text-center">
+              <div
+                key={c.title}
+                className="rounded-2xl border border-[var(--gold)]/15 bg-[var(--card)] p-6 text-center"
+              >
                 <c.icon className="mx-auto text-[var(--gold)]" size={26} />
-                <h3 className="font-serif-brand mt-3 text-lg text-[var(--cream)]">{c.title}</h3>
+                <h3 className="font-serif-brand mt-3 text-lg text-[var(--cream)]">
+                  {c.title}
+                </h3>
                 <p className="mt-1 text-sm text-[var(--cream)]/65">{c.text}</p>
               </div>
             ))}
@@ -186,7 +237,9 @@ function Info({
     <li className="flex gap-4">
       <Icon size={18} className="mt-1 text-[var(--gold)]" />
       <div>
-        <p className="text-xs uppercase tracking-widest text-[var(--gold)]">{label}</p>
+        <p className="text-xs uppercase tracking-widest text-[var(--gold)]">
+          {label}
+        </p>
         <p className="mt-1">{value}</p>
       </div>
     </li>

@@ -22,7 +22,10 @@ export function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   }, [inView, to]);
 
   return (
-    <motion.span ref={ref} className="text-gold-gradient font-serif-brand text-5xl lg:text-6xl">
+    <motion.span
+      ref={ref}
+      className="text-gold-gradient font-serif-brand text-5xl lg:text-6xl"
+    >
       {n}
       {suffix}
     </motion.span>

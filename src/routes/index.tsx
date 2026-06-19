@@ -22,7 +22,10 @@ import { sendWhatsApp } from "@/lib/laplaya/constants";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "La Playa Beach Resort & Lounge — L'art de vivre au bord de la mer" },
+      {
+        title:
+          "La Playa Beach Resort & Lounge — L'art de vivre au bord de la mer",
+      },
       {
         name: "description",
         content:
@@ -65,34 +68,50 @@ function HomePage() {
             animate="visible"
             variants={{
               hidden: {},
-              visible: { transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
+              visible: {
+                transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+              },
             }}
           >
             <motion.p
-              variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 24 },
+                visible: { opacity: 1, y: 0 },
+              }}
               transition={{ duration: 0.7 }}
               className="mb-6 text-xs uppercase tracking-[0.5em] text-[var(--gold)]"
             >
               Bienvenue à La Playa
             </motion.p>
             <motion.h1
-              variants={{ hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 28 },
+                visible: { opacity: 1, y: 0 },
+              }}
               transition={{ duration: 0.8 }}
               className="font-serif-brand max-w-4xl text-5xl leading-[1.05] text-[var(--cream)] sm:text-6xl lg:text-8xl"
             >
               L'Art de Vivre <br />
-              <span className="text-gold-gradient italic">au Bord de la Mer</span>
+              <span className="text-gold-gradient italic">
+                au Bord de la Mer
+              </span>
             </motion.h1>
             <motion.p
-              variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 24 },
+                visible: { opacity: 1, y: 0 },
+              }}
               transition={{ duration: 0.7 }}
               className="mt-8 max-w-2xl text-base text-[var(--cream)]/80 lg:text-lg"
             >
-              Resort · Restaurant · Lounge — Une expérience premium en bord de mer,
-              entre élégance tropicale et art de vivre raffiné.
+              Resort · Restaurant · Lounge — Une expérience premium en bord de
+              mer, entre élégance tropicale et art de vivre raffiné.
             </motion.p>
             <motion.div
-              variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
+              variants={{
+                hidden: { opacity: 0, y: 24 },
+                visible: { opacity: 1, y: 0 },
+              }}
               transition={{ duration: 0.7 }}
               className="mt-10 flex flex-wrap gap-4"
             >
@@ -174,10 +193,10 @@ function HomePage() {
             </h2>
             <GoldDivider className="my-8 !mx-0" />
             <p className="text-[var(--cream)]/75 leading-relaxed">
-              Niché entre océan et palmeraie, La Playa réinvente l'art de l'évasion
-              tropicale. Nos suites et cabanes confidentielles vous invitent à un
-              séjour rare, ponctué de couchers de soleil flamboyants, de cocktails
-              signature et d'une gastronomie iodée.
+              Niché entre océan et palmeraie, La Playa réinvente l'art de
+              l'évasion tropicale. Nos suites et cabanes confidentielles vous
+              invitent à un séjour rare, ponctué de couchers de soleil
+              flamboyants, de cocktails signature et d'une gastronomie iodée.
             </p>
 
             <div className="mt-10 grid grid-cols-3 gap-6 border-t border-[var(--gold)]/15 pt-8">
@@ -210,7 +229,8 @@ function HomePage() {
           <div className="text-center">
             <SectionLabel>Nos Univers</SectionLabel>
             <h2 className="font-serif-brand mt-4 text-4xl text-[var(--cream)] lg:text-5xl">
-              Trois mondes, <span className="italic text-gold-gradient">une signature</span>
+              Trois mondes,{" "}
+              <span className="italic text-gold-gradient">une signature</span>
             </h2>
             <GoldDivider className="mt-6" />
           </div>
@@ -247,7 +267,9 @@ function HomePage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--charcoal)] via-[var(--charcoal)]/40 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-8 transition-transform duration-500 group-hover:-translate-y-2">
-                  <h3 className="font-serif-brand text-2xl text-[var(--cream)]">{u.title}</h3>
+                  <h3 className="font-serif-brand text-2xl text-[var(--cream)]">
+                    {u.title}
+                  </h3>
                   <div className="mt-3 h-0.5 w-10 bg-[var(--gold)] transition-all duration-500 group-hover:w-24" />
                   <p className="mt-3 text-sm uppercase tracking-widest text-[var(--gold)] opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                     Découvrir →
@@ -296,7 +318,9 @@ function HomePage() {
                   <h3 className="font-serif-brand mt-2 text-xl text-[var(--cream)]">
                     {ev.title}
                   </h3>
-                  <p className="mt-2 text-sm text-[var(--cream)]/70">{ev.description}</p>
+                  <p className="mt-2 text-sm text-[var(--cream)]/70">
+                    {ev.description}
+                  </p>
                 </div>
               </div>
             </Reveal>
@@ -378,7 +402,12 @@ function HomePage() {
                   </div>
                   <div className="flex gap-0.5">
                     {Array.from({ length: t.stars }).map((_, j) => (
-                      <Star key={j} size={14} fill="currentColor" className="text-[var(--gold)]" />
+                      <Star
+                        key={j}
+                        size={14}
+                        fill="currentColor"
+                        className="text-[var(--gold)]"
+                      />
                     ))}
                   </div>
                 </div>

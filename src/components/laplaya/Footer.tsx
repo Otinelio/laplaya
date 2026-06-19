@@ -20,7 +20,10 @@ export function Footer() {
 
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="mb-12 text-center">
-          <Link to="/" className="font-serif-brand text-3xl tracking-wider text-[var(--gold)]">
+          <Link
+            to="/"
+            className="font-serif-brand text-3xl tracking-wider text-[var(--gold)]"
+          >
             La Playa
           </Link>
           <p className="font-display-brand mt-2 text-lg italic text-[var(--cream)]/70">
@@ -34,11 +37,31 @@ export function Footer() {
               Navigation
             </h4>
             <ul className="space-y-2 text-sm text-[var(--cream)]/70">
-              <li><Link to="/sejours" className="hover:text-[var(--gold)]">Séjours</Link></li>
-              <li><Link to="/restaurant" className="hover:text-[var(--gold)]">Restaurant & Bar</Link></li>
-              <li><Link to="/evenements" className="hover:text-[var(--gold)]">Événements</Link></li>
-              <li><Link to="/galerie" className="hover:text-[var(--gold)]">Galerie</Link></li>
-              <li><Link to="/contact" className="hover:text-[var(--gold)]">Contact</Link></li>
+              <li>
+                <Link to="/sejours" className="hover:text-[var(--gold)]">
+                  Séjours
+                </Link>
+              </li>
+              <li>
+                <Link to="/restaurant" className="hover:text-[var(--gold)]">
+                  Restaurant & Bar
+                </Link>
+              </li>
+              <li>
+                <Link to="/evenements" className="hover:text-[var(--gold)]">
+                  Événements
+                </Link>
+              </li>
+              <li>
+                <Link to="/galerie" className="hover:text-[var(--gold)]">
+                  Galerie
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-[var(--gold)]">
+                  Contact
+                </Link>
+              </li>
             </ul>
           </div>
 

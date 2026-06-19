@@ -34,7 +34,13 @@ function ReceptionPage() {
   const pin = useAdmin((s) => s.receptionPin);
 
   if (!unlocked) {
-    return <PinPad expected={pin} onSuccess={() => setUnlocked(true)} title="Réception" />;
+    return (
+      <PinPad
+        expected={pin}
+        onSuccess={() => setUnlocked(true)}
+        title="Réception"
+      />
+    );
   }
   return <ReceptionDashboard onLogout={() => setUnlocked(false)} />;
 }
@@ -47,7 +53,9 @@ function ReceptionDashboard({ onLogout }: { onLogout: () => void }) {
   useEffect(() => {
     const tick = () => {
       const o = loadOrders();
-      if (o.filter((x) => x.status === "En attente").length > lastCount.current) {
+      if (
+        o.filter((x) => x.status === "En attente").length > lastCount.current
+      ) {
         playChime();
       }
       lastCount.current = o.filter((x) => x.status === "En attente").length;
@@ -67,11 +75,17 @@ function ReceptionDashboard({ onLogout }: { onLogout: () => void }) {
   today.setHours(0, 0, 0, 0);
   const todayOrders = orders.filter((o) => o.time >= today.getTime());
   const revenue = todayOrders.reduce((s, o) => s + o.total, 0);
-  const activeSpots = new Set(orders.filter((o) => o.status !== "Livré").map((o) => o.spotId)).size;
+  const activeSpots = new Set(
+    orders.filter((o) => o.status !== "Livré").map((o) => o.spotId),
+  ).size;
 
   const advance = (o: Order) => {
     const next: OrderStatus =
-      o.status === "En attente" ? "En préparation" : o.status === "En préparation" ? "Livré" : "Livré";
+      o.status === "En attente"
+        ? "En préparation"
+        : o.status === "En préparation"
+          ? "Livré"
+          : "Livré";
     updateOrderStatus(o.id, next);
     setOrders(loadOrders());
   };
@@ -84,7 +98,9 @@ function ReceptionDashboard({ onLogout }: { onLogout: () => void }) {
     <div className="min-h-screen bg-[var(--charcoal)] text-[var(--cream)]">
       <header className="sticky top-0 z-20 flex items-center justify-between border-b border-[var(--gold)]/15 bg-[var(--charcoal)]/95 px-6 py-4 backdrop-blur">
         <div className="flex items-center gap-4">
-          <p className="font-serif-brand text-2xl text-[var(--gold)]">La Playa</p>
+          <p className="font-serif-brand text-2xl text-[var(--gold)]">
+            La Playa
+          </p>
           <span className="hidden text-sm uppercase tracking-widest text-[var(--cream)]/60 md:inline">
             Réception
           </span>
@@ -106,21 +122,36 @@ function ReceptionDashboard({ onLogout }: { onLogout: () => void }) {
 
       <div className="px-6 py-6">
         <div className="grid gap-4 md:grid-cols-4">
-          <Stat label="Commandes aujourd'hui" value={String(todayOrders.length)} />
+          <Stat
+            label="Commandes aujourd'hui"
+            value={String(todayOrders.length)}
+          />
           <Stat label="Recettes du jour" value={formatFCFA(revenue)} />
           <Stat label="Spots actifs" value={String(activeSpots)} />
-          <Stat label="En attente" value={String(orders.filter((o) => o.status === "En attente").length)} />
+          <Stat
+            label="En attente"
+            value={String(
+              orders.filter((o) => o.status === "En attente").length,
+            )}
+          />
         </div>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
           {COLUMNS.map((col) => {
             const colOrders = orders.filter((o) => o.status === col.id);
             return (
-              <div key={col.id} className="rounded-2xl border border-[var(--gold)]/15 bg-[var(--card)] p-4">
+              <div
+                key={col.id}
+                className="rounded-2xl border border-[var(--gold)]/15 bg-[var(--card)] p-4"
+              >
                 <div className="mb-4 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className={`inline-block h-2.5 w-2.5 rounded-full ${col.dot}`} />
-                    <h3 className="font-serif-brand text-lg text-[var(--cream)]">{col.label}</h3>
+                    <span
+                      className={`inline-block h-2.5 w-2.5 rounded-full ${col.dot}`}
+                    />
+                    <h3 className="font-serif-brand text-lg text-[var(--cream)]">
+                      {col.label}
+                    </h3>
                   </div>
                   <span className="rounded-full bg-[var(--charcoal)] px-2.5 py-0.5 text-xs text-[var(--cream)]/70">
                     {colOrders.length}
@@ -141,16 +172,24 @@ function ReceptionDashboard({ onLogout }: { onLogout: () => void }) {
                           <span className="rounded-full bg-[var(--gold)] px-2.5 py-0.5 text-[10px] uppercase tracking-widest text-[var(--charcoal)]">
                             {o.spotId}
                           </span>
-                          <span className="text-xs text-[var(--cream)]/50">{relTime(o.time)}</span>
+                          <span className="text-xs text-[var(--cream)]/50">
+                            {relTime(o.time)}
+                          </span>
                         </div>
-                        <p className="mt-2 text-sm text-[var(--cream)]">{o.name}</p>
+                        <p className="mt-2 text-sm text-[var(--cream)]">
+                          {o.name}
+                        </p>
                         <ul className="mt-2 space-y-0.5 text-xs text-[var(--cream)]/70">
                           {o.items.map((it, i) => (
-                            <li key={i}>{it.qty} × {it.name}</li>
+                            <li key={i}>
+                              {it.qty} × {it.name}
+                            </li>
                           ))}
                         </ul>
                         <div className="mt-3 flex items-center justify-between border-t border-[var(--gold)]/10 pt-3">
-                          <span className="text-sm text-[var(--gold)]">{formatFCFA(o.total)}</span>
+                          <span className="text-sm text-[var(--gold)]">
+                            {formatFCFA(o.total)}
+                          </span>
                           <div className="flex gap-1.5">
                             {col.id !== "Livré" && (
                               <button
@@ -158,7 +197,11 @@ function ReceptionDashboard({ onLogout }: { onLogout: () => void }) {
                                 className="rounded-full border border-emerald-500/40 p-1.5 text-emerald-300 hover:bg-emerald-500/10"
                                 aria-label="Avancer"
                               >
-                                {col.id === "En attente" ? <Check size={14} /> : <Truck size={14} />}
+                                {col.id === "En attente" ? (
+                                  <Check size={14} />
+                                ) : (
+                                  <Truck size={14} />
+                                )}
                               </button>
                             )}
                             <button
@@ -177,7 +220,9 @@ function ReceptionDashboard({ onLogout }: { onLogout: () => void }) {
                     ))}
                   </AnimatePresence>
                   {colOrders.length === 0 && (
-                    <p className="py-6 text-center text-xs text-[var(--cream)]/40">Aucune commande</p>
+                    <p className="py-6 text-center text-xs text-[var(--cream)]/40">
+                      Aucune commande
+                    </p>
                   )}
                 </div>
               </div>
@@ -192,8 +237,12 @@ function ReceptionDashboard({ onLogout }: { onLogout: () => void }) {
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-2xl border border-[var(--gold)]/15 bg-[var(--card)] p-5">
-      <p className="text-xs uppercase tracking-widest text-[var(--cream)]/60">{label}</p>
-      <p className="font-serif-brand mt-2 text-2xl text-[var(--gold)]">{value}</p>
+      <p className="text-xs uppercase tracking-widest text-[var(--cream)]/60">
+        {label}
+      </p>
+      <p className="font-serif-brand mt-2 text-2xl text-[var(--gold)]">
+        {value}
+      </p>
     </div>
   );
 }
@@ -209,7 +258,8 @@ function relTime(t: number) {
 
 function playChime() {
   try {
-    type WindowWithWebkit = Window & typeof globalThis & { webkitAudioContext?: typeof AudioContext };
+    type WindowWithWebkit = Window &
+      typeof globalThis & { webkitAudioContext?: typeof AudioContext };
     const w = window as WindowWithWebkit;
     const Ctx = window.AudioContext ?? w.webkitAudioContext;
     if (!Ctx) return;

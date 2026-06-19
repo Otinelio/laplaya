@@ -19,7 +19,14 @@ import { ROOMS, type Room } from "@/lib/laplaya/data";
 import { formatFCFA, sendWhatsApp } from "@/lib/laplaya/constants";
 
 const AMENITY_ICONS = { Wifi, Wind, Tv, Coffee, Bath } as const;
-const FILTERS = ["Tous", "Vue Mer", "Vue Jardin", "Suite", "Cabane", "Disponibles"] as const;
+const FILTERS = [
+  "Tous",
+  "Vue Mer",
+  "Vue Jardin",
+  "Suite",
+  "Cabane",
+  "Disponibles",
+] as const;
 
 export const Route = createFileRoute("/sejours")({
   head: () => ({
@@ -33,7 +40,8 @@ export const Route = createFileRoute("/sejours")({
       { property: "og:title", content: "Séjours — La Playa Beach Resort" },
       {
         property: "og:description",
-        content: "Du bungalow intime à la suite vue mer, trouvez votre havre de paix.",
+        content:
+          "Du bungalow intime à la suite vue mer, trouvez votre havre de paix.",
       },
       { property: "og:url", content: "/sejours" },
     ],
@@ -52,7 +60,8 @@ function SejoursPage() {
       if (filter === "Vue Mer") return r.view === "mer";
       if (filter === "Vue Jardin") return r.view === "jardin";
       if (filter === "Suite") return r.type === "suite";
-      if (filter === "Cabane") return r.type === "cabane" || r.type === "bungalow";
+      if (filter === "Cabane")
+        return r.type === "cabane" || r.type === "bungalow";
       if (filter === "Disponibles") return r.available;
       return true;
     });
@@ -99,7 +108,9 @@ function SejoursPage() {
                     <div className="absolute right-3 top-3 flex items-center gap-2 rounded-full bg-[var(--charcoal)]/80 px-3 py-1 text-xs uppercase tracking-widest backdrop-blur">
                       <span
                         className={`inline-block h-2 w-2 rounded-full ${
-                          room.available ? "bg-emerald-400" : "bg-[var(--coral)]"
+                          room.available
+                            ? "bg-emerald-400"
+                            : "bg-[var(--coral)]"
                         }`}
                       />
                       <span className="text-[var(--cream)]/85">
@@ -108,11 +119,16 @@ function SejoursPage() {
                     </div>
                   </div>
                   <div className="p-6">
-                    <h3 className="font-serif-brand text-2xl text-[var(--gold)]">{room.name}</h3>
-                    <p className="mt-2 text-sm text-[var(--cream)]/70">{room.description}</p>
+                    <h3 className="font-serif-brand text-2xl text-[var(--gold)]">
+                      {room.name}
+                    </h3>
+                    <p className="mt-2 text-sm text-[var(--cream)]/70">
+                      {room.description}
+                    </p>
                     <div className="mt-4 flex gap-3 text-[var(--gold)]/70">
                       {room.amenities.map((a) => {
-                        const Ico = AMENITY_ICONS[a as keyof typeof AMENITY_ICONS];
+                        const Ico =
+                          AMENITY_ICONS[a as keyof typeof AMENITY_ICONS];
                         return Ico ? <Ico key={a} size={16} /> : null;
                       })}
                     </div>
@@ -144,7 +160,13 @@ function SejoursPage() {
   );
 }
 
-function RoomModal({ room, onClose }: { room: Room | null; onClose: () => void }) {
+function RoomModal({
+  room,
+  onClose,
+}: {
+  room: Room | null;
+  onClose: () => void;
+}) {
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -205,8 +227,8 @@ function RoomModal({ room, onClose }: { room: Room | null; onClose: () => void }
                       Demande envoyée
                     </h3>
                     <p className="mt-2 max-w-md text-sm text-[var(--cream)]/70">
-                      Votre demande a été transmise via WhatsApp. Notre équipe vous
-                      répondra sous 24h.
+                      Votre demande a été transmise via WhatsApp. Notre équipe
+                      vous répondra sous 24h.
                     </p>
                     <GoldButton onClick={onClose} className="mt-6">
                       Fermer
@@ -217,7 +239,9 @@ function RoomModal({ room, onClose }: { room: Room | null; onClose: () => void }
                     <h3 className="font-serif-brand text-3xl text-[var(--gold)]">
                       {room.name}
                     </h3>
-                    <p className="mt-2 text-[var(--cream)]/75">{room.description}</p>
+                    <p className="mt-2 text-[var(--cream)]/75">
+                      {room.description}
+                    </p>
 
                     <div className="mt-4 grid grid-cols-3 gap-2">
                       {room.images.map((img) => (
@@ -232,19 +256,49 @@ function RoomModal({ room, onClose }: { room: Room | null; onClose: () => void }
                     </div>
 
                     <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-                      <Field label="Nom complet" value={form.name} onChange={(v) => setForm({ ...form, name: v })} />
-                      <Field label="Email" type="email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
-                      <Field label="Téléphone" value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} />
-                      <Field label="Personnes" type="number" value={form.guests} onChange={(v) => setForm({ ...form, guests: v })} />
-                      <Field label="Arrivée" type="date" value={form.checkIn} onChange={(v) => setForm({ ...form, checkIn: v })} />
-                      <Field label="Départ" type="date" value={form.checkOut} onChange={(v) => setForm({ ...form, checkOut: v })} />
+                      <Field
+                        label="Nom complet"
+                        value={form.name}
+                        onChange={(v) => setForm({ ...form, name: v })}
+                      />
+                      <Field
+                        label="Email"
+                        type="email"
+                        value={form.email}
+                        onChange={(v) => setForm({ ...form, email: v })}
+                      />
+                      <Field
+                        label="Téléphone"
+                        value={form.phone}
+                        onChange={(v) => setForm({ ...form, phone: v })}
+                      />
+                      <Field
+                        label="Personnes"
+                        type="number"
+                        value={form.guests}
+                        onChange={(v) => setForm({ ...form, guests: v })}
+                      />
+                      <Field
+                        label="Arrivée"
+                        type="date"
+                        value={form.checkIn}
+                        onChange={(v) => setForm({ ...form, checkIn: v })}
+                      />
+                      <Field
+                        label="Départ"
+                        type="date"
+                        value={form.checkOut}
+                        onChange={(v) => setForm({ ...form, checkOut: v })}
+                      />
                       <div className="md:col-span-2">
                         <label className="mb-2 block text-xs uppercase tracking-widest text-[var(--gold)]">
                           Demandes spéciales
                         </label>
                         <textarea
                           value={form.notes}
-                          onChange={(e) => setForm({ ...form, notes: e.target.value })}
+                          onChange={(e) =>
+                            setForm({ ...form, notes: e.target.value })
+                          }
                           rows={3}
                           className="w-full rounded-lg border border-[var(--gold)]/20 bg-[var(--charcoal)] px-4 py-3 text-sm text-[var(--cream)] focus:border-[var(--gold)] focus:outline-none"
                         />

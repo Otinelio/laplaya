@@ -10,7 +10,10 @@ export const Route = createFileRoute("/spot/$spotId")({
   head: () => ({
     meta: [
       { title: "La Playa — Commande" },
-      { name: "description", content: "Commandez depuis votre cabane, transat ou table." },
+      {
+        name: "description",
+        content: "Commandez depuis votre cabane, transat ou table.",
+      },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -19,7 +22,8 @@ export const Route = createFileRoute("/spot/$spotId")({
 
 function SpotPage() {
   const { spotId } = Route.useParams();
-  const [cat, setCat] = useState<(typeof MENU_CATEGORIES)[number]["id"]>("cocktails");
+  const [cat, setCat] =
+    useState<(typeof MENU_CATEGORIES)[number]["id"]>("cocktails");
   const [items, setItems] = useState<Record<string, number>>({});
   const [name, setName] = useState("");
   const [cartOpen, setCartOpen] = useState(false);
@@ -34,7 +38,8 @@ function SpotPage() {
   const total = cartItems.reduce((s, c) => s + c.item.price * c.qty, 0);
   const totalQty = cartItems.reduce((s, c) => s + c.qty, 0);
 
-  const add = (id: string) => setItems((p) => ({ ...p, [id]: (p[id] ?? 0) + 1 }));
+  const add = (id: string) =>
+    setItems((p) => ({ ...p, [id]: (p[id] ?? 0) + 1 }));
   const dec = (id: string) =>
     setItems((p) => ({ ...p, [id]: Math.max(0, (p[id] ?? 0) - 1) }));
 
@@ -43,7 +48,11 @@ function SpotPage() {
     const order: Order = {
       id: `o_${Date.now()}`,
       spotId,
-      items: cartItems.map((c) => ({ name: c.item.name, price: c.item.price, qty: c.qty })),
+      items: cartItems.map((c) => ({
+        name: c.item.name,
+        price: c.item.price,
+        qty: c.qty,
+      })),
       total,
       name: name || "Invité",
       time: Date.now(),
@@ -94,7 +103,8 @@ function SpotPage() {
           {spotId.replace("-", " ")}
         </div>
         <h1 className="font-serif-brand mt-6 text-2xl text-[var(--cream)]">
-          Que souhaitez-vous <span className="italic text-gold-gradient">commander ?</span>
+          Que souhaitez-vous{" "}
+          <span className="italic text-gold-gradient">commander ?</span>
         </h1>
       </header>
 
@@ -125,10 +135,17 @@ function SpotPage() {
             key={m.id}
             className="flex items-center gap-4 rounded-2xl border border-[var(--gold)]/15 bg-[var(--card)] p-3"
           >
-            <img src={m.image} alt="" loading="lazy" className="h-16 w-16 rounded-xl object-cover" />
+            <img
+              src={m.image}
+              alt=""
+              loading="lazy"
+              className="h-16 w-16 rounded-xl object-cover"
+            />
             <div className="flex-1">
               <p className="text-sm text-[var(--cream)]">{m.name}</p>
-              <p className="text-sm font-medium text-[var(--gold)]">{formatFCFA(m.price)}</p>
+              <p className="text-sm font-medium text-[var(--gold)]">
+                {formatFCFA(m.price)}
+              </p>
             </div>
             {items[m.id] ? (
               <div className="flex items-center gap-2">
@@ -195,7 +212,9 @@ function SpotPage() {
             >
               <div className="mx-auto mb-4 h-1 w-12 rounded-full bg-[var(--gold)]/40" />
               <div className="mb-4 flex items-center justify-between">
-                <h3 className="font-serif-brand text-xl text-[var(--gold)]">Votre commande</h3>
+                <h3 className="font-serif-brand text-xl text-[var(--gold)]">
+                  Votre commande
+                </h3>
                 <button
                   onClick={() => setCartOpen(false)}
                   className="rounded-full border border-[var(--gold)]/30 p-2 text-[var(--gold)]"
@@ -207,7 +226,10 @@ function SpotPage() {
 
               <ul className="max-h-[40vh] space-y-2 overflow-y-auto">
                 {cartItems.map((c) => (
-                  <li key={c.item.id} className="flex items-center justify-between text-sm">
+                  <li
+                    key={c.item.id}
+                    className="flex items-center justify-between text-sm"
+                  >
                     <span className="text-[var(--cream)]">
                       {c.qty} × {c.item.name}
                     </span>
@@ -226,8 +248,12 @@ function SpotPage() {
               />
 
               <div className="mt-4 flex items-center justify-between border-t border-[var(--gold)]/15 pt-4">
-                <span className="text-xs uppercase tracking-widest text-[var(--cream)]/60">Total</span>
-                <span className="font-serif-brand text-2xl text-[var(--gold)]">{formatFCFA(total)}</span>
+                <span className="text-xs uppercase tracking-widest text-[var(--cream)]/60">
+                  Total
+                </span>
+                <span className="font-serif-brand text-2xl text-[var(--gold)]">
+                  {formatFCFA(total)}
+                </span>
               </div>
 
               <button
@@ -247,7 +273,11 @@ function SpotPage() {
 function WaveBackground() {
   return (
     <div className="pointer-events-none absolute inset-x-0 top-0 h-72 overflow-hidden opacity-30">
-      <svg viewBox="0 0 1440 320" className="h-full w-full" preserveAspectRatio="none">
+      <svg
+        viewBox="0 0 1440 320"
+        className="h-full w-full"
+        preserveAspectRatio="none"
+      >
         <path
           d="M0,160 C240,260 480,40 720,160 C960,280 1200,40 1440,160 L1440,320 L0,320 Z"
           fill="rgba(200,165,87,0.15)"

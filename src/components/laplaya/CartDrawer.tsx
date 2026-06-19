@@ -4,19 +4,27 @@ import { useCart } from "@/lib/laplaya/stores";
 import { formatFCFA, sendWhatsApp } from "@/lib/laplaya/constants";
 import { useState } from "react";
 
-export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function CartDrawer({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
   const { items, inc, dec, remove, clear, total } = useCart();
   const [note, setNote] = useState("");
 
   const submit = () => {
     if (items.length === 0) return;
     const lines = items
-      .map((i) => `${i.qty} x ${i.item.name} — ${formatFCFA(i.item.price * i.qty)}`)
+      .map(
+        (i) =>
+          `${i.qty} x ${i.item.name} — ${formatFCFA(i.item.price * i.qty)}`,
+      )
       .join("\n");
-    const msg =
-      `Commande Restaurant - La Playa Beach Resort\n\n${lines}\n--\nTotal: ${formatFCFA(
-        total(),
-      )}\nNom / Table: ${note || "Non précisé"}\nHeure de la commande: ${new Date().toLocaleTimeString("fr-FR")}`;
+    const msg = `Commande Restaurant - La Playa Beach Resort\n\n${lines}\n--\nTotal: ${formatFCFA(
+      total(),
+    )}\nNom / Table: ${note || "Non précisé"}\nHeure de la commande: ${new Date().toLocaleTimeString("fr-FR")}`;
     sendWhatsApp(msg);
     clear();
     setNote("");
@@ -42,7 +50,9 @@ export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => vo
             className="fixed right-0 top-0 z-[90] flex h-full w-full max-w-md flex-col border-l border-[var(--gold)]/20 bg-[var(--card)]"
           >
             <header className="flex items-center justify-between border-b border-[var(--gold)]/15 px-6 py-5">
-              <h3 className="font-serif-brand text-xl text-[var(--gold)]">Votre Commande</h3>
+              <h3 className="font-serif-brand text-xl text-[var(--gold)]">
+                Votre Commande
+              </h3>
               <button
                 onClick={onClose}
                 className="rounded-full border border-[var(--gold)]/30 p-2 text-[var(--gold)]"
@@ -71,7 +81,9 @@ export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => vo
                         className="h-16 w-16 rounded-lg object-cover"
                       />
                       <div className="flex-1">
-                        <p className="text-sm text-[var(--cream)]">{item.name}</p>
+                        <p className="text-sm text-[var(--cream)]">
+                          {item.name}
+                        </p>
                         <p className="text-sm font-medium text-[var(--gold)]">
                           {formatFCFA(item.price * qty)}
                         </p>
@@ -83,7 +95,9 @@ export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => vo
                           >
                             <Minus size={12} />
                           </button>
-                          <span className="w-6 text-center text-sm text-[var(--cream)]">{qty}</span>
+                          <span className="w-6 text-center text-sm text-[var(--cream)]">
+                            {qty}
+                          </span>
                           <button
                             onClick={() => inc(item.id)}
                             className="rounded-full border border-[var(--gold)]/30 p-1 text-[var(--gold)]"
